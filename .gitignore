@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.env
+dist/
+build/
+.pytest_cache/
+.ruff_cache/
+.pyright/
+*.log
+.agentcore.json
+.mcp-identity-proxy-for-aws/

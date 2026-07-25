@@ -1,0 +1,51 @@
+[project]
+name = "mcp-identity-proxy-for-aws"
+version = "0.1.0"
+description = "Client-side MCP proxy that injects OAuth bearer tokens / API keys (via Amazon Bedrock AgentCore Identity or static credentials) for MCP servers using OAuth or API-key authentication, such as AgentCore Gateway inbound auth."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "mcp-identity-proxy-for-aws contributors" }]
+keywords = ["mcp", "oauth", "proxy", "bearer", "agentcore", "bedrock", "aws"]
+dependencies = [
+    "fastmcp>=2.11.0",
+    "mcp>=1.13.0",
+    "httpx>=0.28.0",
+    "boto3>=1.40.0",
+    "bedrock-agentcore>=0.1.0",
+    "pydantic>=2.7.0",
+]
+
+[project.scripts]
+mcp-identity-proxy-for-aws = "mcp_identity_proxy_for_aws.cli:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.24.0",
+    "ruff>=0.6.0",
+    "pyright>=1.1.380",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mcp_identity_proxy_for_aws"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B"]
+
+[tool.pyright]
+include = ["src"]
+pythonVersion = "3.10"
+typeCheckingMode = "basic"
