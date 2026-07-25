@@ -1,0 +1,24 @@
+# gitleaks configuration - allowlist to suppress false positives on public,
+# non-secret constants. gitleaks flags high-entropy strings (e.g. blockchain
+# addresses, contract addresses, test fixtures) as "generic-api-key". Those are
+# public and non-secret; exempt them explicitly here.
+#
+# Usage: for each Probe/gitleaks finding, add the regex or file path to the
+#   allowlist below, then push to GitLab and re-run Probe until ERROR = 0.
+# Rule: only exempt strings you have confirmed are public/non-secret. Real
+#   secrets must be removed, never masked with an allowlist.
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Public, non-secret constants (addresses, test fixtures)"
+# Examples (uncomment and replace with your real hits):
+# regexes = [
+#   '''0x[0-9a-fA-F]{40}''',           # EVM address (public, non-secret)
+# ]
+# paths = [
+#   '''test/fixtures/.*''',            # test fixture directory
+# ]
+# Tip: don't use AKIA-prefixed dummy strings in tests (they trip scanners);
+#      use something like test-akid instead.
