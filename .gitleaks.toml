@@ -1,24 +1,19 @@
-# gitleaks configuration - allowlist to suppress false positives on public,
-# non-secret constants. gitleaks flags high-entropy strings (e.g. blockchain
-# addresses, contract addresses, test fixtures) as "generic-api-key". Those are
-# public and non-secret; exempt them explicitly here.
+# gitleaks configuration.
 #
-# Usage: for each Probe/gitleaks finding, add the regex or file path to the
-#   allowlist below, then push to GitLab and re-run Probe until ERROR = 0.
-# Rule: only exempt strings you have confirmed are public/non-secret. Real
-#   secrets must be removed, never masked with an allowlist.
+# The end-to-end tests stand up a local, throwaway MCP server and drive the
+# proxy against it with a hard-coded *dummy* credential (e.g. the api-key test
+# uses `API_KEY = "test-api-key-abc123"`). These are non-secret test fixtures,
+# not real credentials, so gitleaks' generic "api-key" heuristic is a false
+# positive here. Exempt only these obvious test-fixture patterns.
+#
+# Rule: only exempt strings confirmed to be public / non-secret. Real secrets
+# must be removed and rotated, never masked with an allowlist.
 
 [extend]
 useDefault = true
 
 [allowlist]
-description = "Public, non-secret constants (addresses, test fixtures)"
-# Examples (uncomment and replace with your real hits):
-# regexes = [
-#   '''0x[0-9a-fA-F]{40}''',           # EVM address (public, non-secret)
-# ]
-# paths = [
-#   '''test/fixtures/.*''',            # test fixture directory
-# ]
-# Tip: don't use AKIA-prefixed dummy strings in tests (they trip scanners);
-#      use something like test-akid instead.
+description = "Dummy, non-secret credentials used only by the end-to-end tests."
+regexes = [
+  '''test-api-key-[A-Za-z0-9]+''',
+]

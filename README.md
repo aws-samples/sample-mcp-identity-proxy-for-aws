@@ -95,7 +95,7 @@ Requires Python 3.10+ and (for the AgentCore strategies) AWS credentials.
 ```bash
 # From source with uv
 git clone <your-fork-url> mcp-identity-proxy-for-aws
-cd sample-mcp-identity-proxy-for-aws
+cd mcp-identity-proxy-for-aws
 uv sync
 
 # Run it

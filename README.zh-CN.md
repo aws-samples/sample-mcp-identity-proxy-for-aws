@@ -88,7 +88,7 @@
 ```bash
 # 从源码用 uv 安装
 git clone <your-fork-url> mcp-identity-proxy-for-aws
-cd sample-mcp-identity-proxy-for-aws
+cd mcp-identity-proxy-for-aws
 uv sync
 
 # 运行
